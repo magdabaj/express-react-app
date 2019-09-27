@@ -11,6 +11,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 let testAPIRouter = require('./routes/testAPI');
 let messagesRouter = require('./routes/messages');
+let imagesRouter = require('./routes/images');
+let albumsRouter = require('./routes/albums');
 
 var app = express();
 
@@ -34,6 +36,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/testAPI', testAPIRouter);
 app.use('/messages', messagesRouter);
+app.use('/images', imagesRouter);
+app.use('/albums', albumsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

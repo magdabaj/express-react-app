@@ -1,64 +1,34 @@
-import React,{useState, useEffect} from 'react';
+import {MDBContainer} from "mdbreact";
+import Header from "./components/common/Header";
+import React from 'react';
 import './App.css';
+import {Route, Switch} from 'react-router-dom';
+import {store} from "./redux/store";
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import HomePage from './components/HomePage';
+import UsersPage from './components/UsersPage';
+import AboutPage from './components/AboutPage';
+import ManageUsersPage from './components/ManageUsersPage';
+// import BurgerHeader from './components/common/BurgerHeader';
 
 const App = () => {
-   const [response, setResponse] = useState([])
+   console.log(store.getState());
 
-    const callApi = () => {
-        fetch('http://localhost:9000/testAPI')
-            .then(res => res.json())
-            .then(apiResponse => {console.log(apiResponse); setResponse(apiResponse)})
-            .catch(err => err)
-    };
-
-    const callApiUser = (id) => {
-        fetch(`http://localhost:9000/testAPI/${id}`)
-            .then(res => res.json())
-            .then(apiResponse => {console.log(apiResponse); setResponse(apiResponse)})
-            .catch(err => err)
-    };
-
-    const postApi = () => {
-        console.log('test api')
-        fetch('http://localhost:9000/testAPI', {
-            method: 'POST',
-            headers: {'content-type': 'application/json'},
-            body: JSON.stringify({user_id: 3, name: 'Marry'})
-        })
-            .then(res => res.json())
-            .then(res => setResponse(res))
-    };
-
-    const deleteApi = (id) => {
-        fetch(`http://localhost:9000/testAPI/${id}`, {
-            method: 'DELETE',
-        })
-            .then(res => res.json())
-            .then(res => {
-                console.log(res);
-                setResponse(res)
-            })
-    };
-
-    useEffect(() => {
-        // callApi();
-        callApiUser(1)
-        // postApi();
-        // deleteApi(1)
-    },[]);
-
-    console.log(response);
 
         return (
-            <div >
-                {response.map(user => (
-                    <div key={user.user_id}>
-                    <div>{user.name}</div>
-                    <div>{user.surname}</div>
-                    </div>
-                ))}
-
-                <button onClick={() => deleteApi(1)}>Delete</button>
+            <div>
+                <Header/>
+            <MDBContainer className={'App'} >
+                <Switch>
+                    <Route exact path={'/'} component={HomePage}/>
+                    <Route path={'/users'} component={UsersPage}/>
+                    <Route path={'/user/:slug'} component={ManageUsersPage}/>
+                    <Route path={'/user'} component={ManageUsersPage}/>
+                    <Route path={'/about'} component={AboutPage}/>
+                </Switch>
+                <ToastContainer autoClose={3000}/>
+            </MDBContainer>
             </div>
         );
 };

@@ -1,6 +1,22 @@
 .App {
+  width: 100%;
+  max-width: 1012px;
   text-align: center;
+  /*display: flex;*/
+  /*flex-direction: column;*/
 }
+
+/*@media screen and (min-width: 415px){*/
+/*  .App {*/
+/*    flex-direction: row;*/
+/*  }*/
+/*}*/
+
+/*.App > * {*/
+/*  -webkit-flex: 1 1 0;*/
+/*  -ms-flex: 1 1 0;*/
+/*  flex: 1 1 0;*/
+/*}*/
 
 .App-logo {
   height: 40vmin;
@@ -15,6 +31,11 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.Header {
+  color: #00B7FF;
+  text-align: center;
 }
 
 .App-link {

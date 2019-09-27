@@ -36,16 +36,48 @@ router.get('/:userId', (req, res) => {
 
 router.post('/', (req, res) => {
     let name = req.body.name;
+    let surname = req.body.surname;
+    let email = req.body.email;
     let user_id = req.body.user_id;
-    return res.send({user_id: user_id, name: name});
+    let sql = 'INSERT INTO users (name, surname, email) VALUES ($1, $2, $3)';
+    let params = [ name, surname, email];
+    client.query(sql, params, (err, res2) => {
+        if (err) {
+            console.log(err.stack)
+        } else {
+            console.log(res2.rows);
+            res.send(Object.values(res2.rows));
+        }
+    });
 });
 router.put('/', (req, res) => {
-    return res.send('PUT HTTP method on user resource');
+    let name = req.body.name;
+    let surname = req.body.surname;
+    let email = req.body.email;
+    let user_id = req.body.user_id;
+    let sql = 'UPDATE users SET name = $1,surname = $2, email = $3 WHERE user_id = $4';
+    let params = [name, surname, email, user_id];
+    client.query(sql, params, (err, res2) => {
+        if (err) {
+            console.log(err.stack)
+        } else {
+            console.log(res2.rows);
+            res.send(Object.values(res2.rows));
+        }
+    });
 });
-router.delete('/:id', (req, res) => {
-    let id = parseInt(req.params.id);
-    delete (id);
-     res.send('DELETE HTTP method on user resource');
+router.delete('/:userId', (req, res) => {
+    let user_id = req.params.userId;
+    let sql = 'DELETE FROM users WHERE user_id = $1';
+    let params = [user_id];
+    client.query(sql, params, (err, res2) => {
+        if (err) {
+            console.log(err.stack)
+        } else {
+            console.log(res2.rows);
+            res.send(Object.values(res2.rows));
+        }
+    });
 });
 
 module.exports = router;
