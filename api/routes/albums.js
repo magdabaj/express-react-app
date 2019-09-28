@@ -37,14 +37,14 @@ router.get('/:albumId', (req, res) => {
 router.post('/', (req, res) => {
     let title = req.body.title;
     let user_id = req.body.user_id;
-    let sql = 'INSERT INTO albums (title, user_id) VALUES ($1, $2)';
+    let sql = 'INSERT INTO albums (title, user_id) VALUES ($1, $2) RETURNING *';
     let params = [ title, user_id];
     client.query(sql, params, (err, res2) => {
         if (err) {
             console.log(err.stack)
         } else {
             console.log(res2.rows);
-            res.send(Object.values(res2.rows));
+            res.send(res2.rows[0]);
         }
     });
 });
@@ -52,14 +52,14 @@ router.put('/', (req, res) => {
     let album_id = req.body.album_id;
     let title = req.body.title;
     let user_id = req.body.user_id;
-    let sql = 'UPDATE albums SET user_id = $1,title = $2 WHERE album_id = $3';
+    let sql = 'UPDATE albums SET user_id = $1,title = $2 WHERE album_id = $3 RETURNING *';
     let params = [user_id, title, album_id];
     client.query(sql, params, (err, res2) => {
         if (err) {
             console.log(err.stack)
         } else {
             console.log(res2.rows);
-            res.send(Object.values(res2.rows));
+            res.send(res2.rows[0]);
         }
     });
 });

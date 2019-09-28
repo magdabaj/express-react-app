@@ -1,5 +1,6 @@
 import React from 'react';
 import {MDBBtn, MDBContainer, MDBTable, MDBTableBody, MDBTableHead} from 'mdbreact';
+import {Link} from 'react-router-dom';
 
 const buttonStyle = {
     borderRadius: 50
@@ -7,7 +8,8 @@ const buttonStyle = {
 
 const UsersList = ({users, onDelete}) => {
     return (
-        <table className={'table'} style={{overflowX: 'auto' }}>
+        <div  style={{overflowY: 'auto', overflowX: 'auto' }}>
+        <table className={'table'}>
             <thead className={'thead-indigo'} color="indigo" >
                 <tr>
                     <th>Name</th>
@@ -19,7 +21,9 @@ const UsersList = ({users, onDelete}) => {
             <tbody>
                 {users.map(user => (
                     <tr key={user.id}>
-                        <td>{user.name}</td>
+                        <td>
+                            <Link to={'/user/' + user.email}>{user.name}</Link>
+                        </td>
                         <td>{user.surname}</td>
                         <td>{user.email}</td>
                         <td><MDBBtn style={buttonStyle} className={'btn-sm'} outline color="danger" onClick={() => onDelete(user)}>Delete</MDBBtn></td>
@@ -27,6 +31,7 @@ const UsersList = ({users, onDelete}) => {
                 ))}
             </tbody>
         </table>
+        </div>
     );
 }
 

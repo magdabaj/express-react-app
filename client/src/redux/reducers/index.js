@@ -1,9 +1,12 @@
-import users, {isSaving, usersError, deletingUser} from './userReducer';
+import users, {isSaving, usersError, deletingUser, savingUser} from './userReducer';
 import {combineReducers} from 'redux';
+import newUser from './newUserReducer';
 
 export default combineReducers({
     users,
     isSaving,
     usersError,
-    deletingUser
+    deletingUser,
+    newUser,
+    savingUser
 })

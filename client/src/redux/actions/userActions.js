@@ -18,6 +18,35 @@ export const loadUsersError = error => ({
     error
 });
 
+export const setUser = user => ({
+    type: types.SET_USER,
+    user
+});
+
+export const saveUser = user => ({
+    type: types.SAVE_USER,
+    user
+});
+
+export const createUserSuccess = user => ({
+    type: types.CREATE_USER_SUCCESS,
+    user
+});
+
+export const updateUserSuccess = user => ({
+    type: types.UPDATE_USER_SUCCESS,
+    user
+});
+
+export const saveUserFinished = () => ({
+    type: types.SAVE_USER_FINISHED,
+});
+
+export const saveUserError = (user, error) => ({
+    type: types.SAVE_USER_ERROR,
+    user,
+    error
+});
 
 export const deleteUser = user => ({
     type: types.DELETE_USER,

@@ -38,15 +38,15 @@ router.post('/', (req, res) => {
     let name = req.body.name;
     let surname = req.body.surname;
     let email = req.body.email;
-    let user_id = req.body.user_id;
-    let sql = 'INSERT INTO users (name, surname, email) VALUES ($1, $2, $3)';
-    let params = [ name, surname, email];
+    let join_date = new Date();
+    let sql = 'INSERT INTO users (name, surname, email, join_date) VALUES ($1, $2, $3, $4) RETURNING *';
+    let params = [ name, surname, email, join_date];
     client.query(sql, params, (err, res2) => {
         if (err) {
             console.log(err.stack)
         } else {
-            console.log(res2.rows);
-            res.send(Object.values(res2.rows));
+            console.log('new user',res2.rows);
+            res.send(res2.rows[0]);
         }
     });
 });
@@ -55,14 +55,15 @@ router.put('/', (req, res) => {
     let surname = req.body.surname;
     let email = req.body.email;
     let user_id = req.body.user_id;
-    let sql = 'UPDATE users SET name = $1,surname = $2, email = $3 WHERE user_id = $4';
-    let params = [name, surname, email, user_id];
+    let edit_date = new Date();
+    let sql = 'UPDATE users SET name = $1,surname = $2, email = $3, edit_date = $4 WHERE user_id = $5 RETURNING *';
+    let params = [name, surname, email, edit_date, user_id];
     client.query(sql, params, (err, res2) => {
         if (err) {
             console.log(err.stack)
         } else {
             console.log(res2.rows);
-            res.send(Object.values(res2.rows));
+            res.send(res2.rows[0]);
         }
     });
 });
