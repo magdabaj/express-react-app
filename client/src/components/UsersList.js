@@ -13,8 +13,8 @@ const UsersList = ({users, onDelete}) => {
             <thead className={'thead-indigo'} color="indigo" >
                 <tr>
                     <th>Name</th>
-                    <th>Surname</th>
                     <th>Email</th>
+                    <th>See profile</th>
                     <th/>
                 </tr>
             </thead>
@@ -22,10 +22,12 @@ const UsersList = ({users, onDelete}) => {
                 {users.map(user => (
                     <tr key={user.id}>
                         <td>
-                            <Link to={'/user/' + user.email}>{user.name}</Link>
+                            <Link to={'/user/' + user.email}>{user.name} {user.surname}</Link>
                         </td>
-                        <td>{user.surname}</td>
                         <td>{user.email}</td>
+                        <td>
+                            <Link to={'/profile/' + user.email}>Link</Link>
+                        </td>
                         <td><MDBBtn style={buttonStyle} className={'btn-sm'} outline color="danger" onClick={() => onDelete(user)}>Delete</MDBBtn></td>
                     </tr>
                 ))}

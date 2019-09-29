@@ -1,3 +1,4 @@
+import Spinner from "./common/Spinner";
 import UsersForm from "./UsersFrom";
 import React, {useEffect, useState} from 'react';
 import {loadUsers, setUser, saveUser} from "../redux/actions/userActions";
@@ -14,7 +15,8 @@ const ManageUsersPage = ({user, users, loadUsers, setUser, isSaving, saveUser, .
         }
 
         if(_user.name === '') {
-            setUser({...user})
+            setUser({...user});
+            _setUser({...user})
         }
 
     }, [_user]);
@@ -37,12 +39,20 @@ const ManageUsersPage = ({user, users, loadUsers, setUser, isSaving, saveUser, .
         props.history.push('/users');
     }
 
+    console.log(_user)
+
     return (
-        <div>
-
-            <UsersForm user={_user} onChange={handleChange} onSave={handleSave}/>
-
-        </div>
+        users.length === 0 || user.name === undefined ? (
+            <Spinner/>
+        ) : (
+            <div>
+                <UsersForm
+                    user={_user}
+                    onChange={handleChange}
+                    onSave={handleSave}
+                />
+            </div>
+    )
     )
 };
 

@@ -44,7 +44,7 @@ class Header extends React.Component {
                     <header>
                         <MDBNavbar color="indigo" dark expand="md">
                             <MDBNavbarBrand href="/">
-                                <strong>Navbar</strong>
+                                <strong>Users</strong>
                             </MDBNavbarBrand>
                             <MDBNavbarToggler onClick={this.onClick} />
                             <MDBCollapse isOpen={this.state.collapse} navbar>
@@ -56,7 +56,7 @@ class Header extends React.Component {
                                         <MDBNavLink to="/users">Users</MDBNavLink>
                                     </MDBNavItem>
                                     <MDBNavItem>
-                                        <MDBNavLink to="#">Pricing</MDBNavLink>
+                                        <MDBNavLink to="/profile">Profiles</MDBNavLink>
                                     </MDBNavItem>
                                     <MDBNavItem>
                                         <MDBNavLink to="#">Opinions</MDBNavLink>

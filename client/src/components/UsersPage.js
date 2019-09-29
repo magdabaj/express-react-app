@@ -6,6 +6,7 @@ import UsersList from './UsersList';
 import {loadUsers, deleteUser} from "../redux/actions/userActions";
 import styled from 'styled-components';
 import {toast} from "react-toastify";
+import Spinner from './common/Spinner';
 
 const Container = styled.div`
     padding: 2em;
@@ -42,9 +43,16 @@ const UsersPage = ({users, isSaving, loadUsers, deleteUser, ...props}) => {
 
     return (
         <Container>
-            {redirect && <Redirect to={'/user'}/>}
-            <MDBBtn className={'wave-effect'} style={buttonStyle} color="indigo" onClick={() => setRedirect(true)}>Add user</MDBBtn>
-            <UsersList users={users} onDelete={handleUserDelete}/>
+            {isSaving
+                ? (
+                    <>
+                    {redirect && <Redirect to={'/user'}/>}
+                    <MDBBtn className={'wave-effect'} style={buttonStyle} color="indigo" onClick={() => setRedirect(true)}>Add user</MDBBtn>
+                    <UsersList users={users} onDelete={handleUserDelete}/>
+                    </>
+                )
+                : <Spinner/>
+            }
         </Container>
 
     )

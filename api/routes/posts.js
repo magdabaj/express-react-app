@@ -12,7 +12,7 @@ const client = new Client({
 client.connect();
 
 router.get('/', (req, res, next) => {
-    client.query('SELECT * FROM user_images', (err, res2) => {
+    client.query('SELECT * FROM posts', (err, res2) => {
         if (err) {
             console.log(err.stack)
         } else {
@@ -22,9 +22,9 @@ router.get('/', (req, res, next) => {
     });
 });
 
-router.get('/:imgId', (req, res) => {
-    let id = parseInt(req.params.imgId);
-    client.query(`SELECT * FROM user_images WHERE image_id=${id}`, (err, res2) => {
+router.get('/:postId', (req, res) => {
+    let id = parseInt(req.params.postId);
+    client.query(`SELECT * FROM posts WHERE post_id=${id}`, (err, res2) => {
         if (err) {
             console.log(err.stack)
         } else {
@@ -35,44 +35,42 @@ router.get('/:imgId', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    let album_id = req.body.album_id;
-    let title = req.body.title;
-    let url = req.body.url;
+    let body = req.body.body;
     let user_id = req.body.user_id;
-    let is_profile_img = req.body.is_profile_img;
-    let sql = 'INSERT INTO user_images (album_id, title, url, user_id, is_profile_img) VALUES ($1, $2, $3, $4, $5)';
-    let params = [ album_id, title, url, user_id, is_profile_img];
+    let private = req.body.private;
+    let add_date = new Date();
+    let sql = 'INSERT INTO posts (body, user_id, private, add_date) VALUES ($1, $2, $3, $4) RETURNING *';
+    let params = [ body, user_id, private, add_date];
     client.query(sql, params, (err, res2) => {
         if (err) {
             console.log(err.stack)
         } else {
             console.log(res2.rows);
-            res.send(Object.values(res2.rows));
+            res.send(res2.rows[0]);
         }
     });
 });
 router.put('/', (req, res) => {
-    let album_id = req.body.album_id;
-    let title = req.body.title;
-    let url = req.body.url;
-    let image_id = req.body.image_id;
+    let post_id = req.body.post_id;
+    let body = req.body.body;
     let user_id = req.body.user_id;
-    let is_profile_img = req.body.is_profile_img;
-    let sql = 'UPDATE user_images SET album_id = $1,title = $2, url = $3, user_id = $5, is_profile_img = $6 WHERE image_id = $4';
-    let params = [album_id, title, url, image_id, user_id, is_profile_img];
+    let private = req.body.private;
+    let edit_date = new Date();
+    let sql = 'UPDATE posts SET user_id = $1, body = $2, private = $3, edit_date = $4 WHERE post_id = $3 RETURNING *';
+    let params = [user_id, body, private, edit_date, post_id];
     client.query(sql, params, (err, res2) => {
         if (err) {
             console.log(err.stack)
         } else {
             console.log(res2.rows);
-            res.send(Object.values(res2.rows));
+            res.send(res2.rows[0]);
         }
     });
 });
-router.delete('/:imgId', (req, res) => {
-    let image_id = req.params.imgId;
-    let sql = 'DELETE FROM user_images WHERE image_id = $1';
-    let params = [image_id];
+router.delete('/:postId', (req, res) => {
+    let post_id = req.params.postId;
+    let sql = 'DELETE FROM posts WHERE post_id = $1';
+    let params = [post_id];
     client.query(sql, params, (err, res2) => {
         if (err) {
             console.log(err.stack)

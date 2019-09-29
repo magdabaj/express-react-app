@@ -1,3 +1,5 @@
+import ProfilePage from "./components/Profiles/ProfilePage";
+import RedirectToProfilePage from "./components/Profiles/RedirectToProfilePage";
 import {MDBContainer} from "mdbreact";
 import Header from "./components/common/Header";
 import React from 'react';
@@ -25,6 +27,8 @@ const App = () => {
                     <Route path={'/users'} component={UsersPage}/>
                     <Route path={'/user/:slug'} component={ManageUsersPage}/>
                     <Route path={'/user'} component={ManageUsersPage}/>
+                    <Route path={'/profile/:slug'} component={ProfilePage}/>
+                    <Route path={'/profile'} component={RedirectToProfilePage}/>
                     <Route path={'/about'} component={AboutPage}/>
                 </Switch>
                 <ToastContainer autoClose={3000}/>

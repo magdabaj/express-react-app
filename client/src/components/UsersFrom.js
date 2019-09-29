@@ -42,6 +42,7 @@ const UsersForm = ({user, onChange, onSave}) => {
                 type={'submit'}
                 onSubmit={onSave}
                 color={'indigo'}
+                disabled={!user.name || !user.surname || !user.email}
             >
                 Save
             </MDBBtn>

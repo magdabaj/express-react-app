@@ -66,7 +66,7 @@ export const isSaving = (state = initialState.isSaving, action) => {
         case types.LOAD_USERS_SUCCESS:
             return true;
         case types.LOAD_USERS_FINISHED:
-            return false;
+            return true;
         case types.LOAD_USERS_ERROR:
             return false;
         default:
