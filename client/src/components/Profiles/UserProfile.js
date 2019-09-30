@@ -1,9 +1,7 @@
 import {MDBContainer, MDBIcon} from "mdbreact";
 import React, {useEffect, useState} from 'react';
 import bcImg from '../../images/bridge-1385938_960_720.jpg';
-import msgIcon from '../../images/baseline_grade_black_48dp.png';
 import styled from 'styled-components';
-import fallowIcon from '../../images/baseline_reply_black_48dp.png';
 
 const Img = styled.img`
     width: 100%;
