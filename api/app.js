@@ -14,6 +14,7 @@ let messagesRouter = require('./routes/messages');
 let imagesRouter = require('./routes/images');
 let albumsRouter = require('./routes/albums');
 let postsRouter = require('./routes/posts');
+let tagRouter = require('./routes/tags');
 
 var app = express();
 
@@ -40,6 +41,7 @@ app.use('/messages', messagesRouter);
 app.use('/images', imagesRouter);
 app.use('/albums', albumsRouter);
 app.use('/posts', postsRouter);
+app.use('/tags', tagRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

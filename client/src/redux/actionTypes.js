@@ -21,3 +21,9 @@ export const LOAD_IMAGES = 'LOAD_IMAGES';
 export const LOAD_IMAGES_SUCCESS = 'LOAD_IMAGES_SUCCESS';
 export const LOAD_IMAGES_FINISHED = 'LOAD_IMAGES_FINISHED';
 export const LOAD_IMAGES_ERROR = 'LOAD_IMAGES_ERROR';
+
+
+export const ADD_TAG = 'ADD_TAG';
+export const ADD_TAG_SUCCESS = 'ADD_TAG_SUCCESS';
+export const ADD_TAG_FINISHED = 'ADD_TAG_FINISHED';
+export const MATCH_TAG = 'MATCH_TAG';
