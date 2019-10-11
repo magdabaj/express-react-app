@@ -3,14 +3,15 @@ import { toast} from "react-toastify";
 import TextInput from "../common/TextInput";
 import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
-import {addTag, addTagFinished} from "../../redux/actions/tagsActions";
+import {addTag, addTagFinished, deleteTag} from "../../redux/actions/tagsActions";
 import {loadUsers} from "../../redux/actions/userActions";
-import _ from 'lodash';
 
 
 const SortByTag = ({users, tags, newTag, setTagSuccess, matchTags, ...props}) => {
     const [_tag, _setTag] = useState(newTag);
-    const [array, setArray] = useState([]);
+    const [suggestions, setSuggestions] = useState([]);
+    const [activeSuggestions, setActiveSuggestions] = useState(0);
+    const [showSuggestions, setShowSuggestions] = useState(false);
     console.log(_tag);
     console.log('tags', tags);
     console.log('matchTags', matchTags)
@@ -27,23 +28,68 @@ const SortByTag = ({users, tags, newTag, setTagSuccess, matchTags, ...props}) =>
 
     }, []);
 
-    if(users.length > 0){
-        const suggestions = users.map((user) => {
-            return {
-                id: user.user_id,
-                name: user.name
-            }
-        });
-        console.log(suggestions)
-    }
+    // if(users.length > 0){
+    //     const suggestions = users.map((user) => {
+    //         return {
+    //             id: user.user_id,
+    //             name: user.name,
+    //             surname: user.surname,
+    //         }
+    //     });
+    //     console.log(suggestions)
+    // }
+
 
     const handleInputChange = (event) => {
         const{ value, name} = event.target;
         _setTag({
                 [name]: value
-        })
+        });
+        console.log(users.filter(user => (
+            user.name.toString().includes(_tag.text.toString())
+        )))
+
+        try{
+        const suggestion = users.filter(user => (
+            user.name.toString().includes(_tag.text.toString())
+        ));
+
+
+        setSuggestions(users.filter(user => (
+                    user.name.toString().includes(_tag.text.toString())
+                )))
+        } catch(e) {
+            console.log(e.message)
+        }
+        setShowSuggestions(true);
     };
-    console.log(_tag);
+
+    console.log(_tag, suggestions);
+
+    const onClick = e => {
+        setSuggestions([]);
+        setShowSuggestions(false);
+        _setTag(e.currentTarget.innerText)
+    };
+
+    const onKeyDown = e => {
+        // if(e.keyCode === 13 ){
+        //     setShowSuggestions(false);
+        //     _setTag(suggestions[activeSuggestions])
+        // } else if (e.keyCode === 38) {
+        //     if (activeSuggestions === 0) {
+        //         return;
+        //     }
+        //     setActiveSuggestions(activeSuggestions-1)
+        // } else if (e.keyCode === 40) {
+        //     if (activeSuggestions - 1 === suggestions.length) {
+        //         return;
+        //     }
+        //     setActiveSuggestions(activeSuggestions + 1)
+        // }
+
+
+    };
 
     const handleSave = (event) => {
         event.preventDefault();
@@ -60,11 +106,55 @@ const SortByTag = ({users, tags, newTag, setTagSuccess, matchTags, ...props}) =>
 
     const handleDeleteTag = async (tag) => {
         try {
-            deleteTag(tag);
+            props.deleteTag(tag);
         } catch(error) {
             toast.error('Delete failed. ' + error.message, {autoClose: false})
         }
     };
+
+    let SuggestionsComponent;
+    if(showSuggestions && _tag) {
+        if(suggestions.length > 0) {
+           SuggestionsComponent = (
+                   <ul>
+                        {suggestions.map((sug, i) => (
+                        <li
+                            key={i}
+                            onClick={onClick}
+                        >
+                            {sug}
+                        </li>
+                        ))}
+                   </ul>
+               )
+        }
+    }
+
+
+    return (
+        <div className="input-tag">
+            <ul className="input-tag__tags">
+                { tags.length > 0 ?
+                    tags.map((tag, i) => (
+                        <li key={i}>
+                            {tag.text}
+                            <button type="button" onClick={() => handleDeleteTag(tag)}>+</button>
+                        </li>
+                    ))
+                    : null
+                }
+            </ul>
+            <form onSubmit={handleSave}>
+                <TextInput name={'text'} label={''} placeholder={'Search for...'} onChange={handleInputChange} onKeyDown={onKeyDown}/>
+                <button onSubmit={handleSave}>Save</button>
+            </form>
+            {SuggestionsComponent}
+            {matchTags.map(tag => (
+                <div><Link to={'profile/' + tag.email}>{tag.name} {tag.surname}</Link></div>
+            ))}
+
+        </div>
+    );
 
     //
     // inputKeyDown = (e) => {
@@ -102,29 +192,6 @@ const SortByTag = ({users, tags, newTag, setTagSuccess, matchTags, ...props}) =>
 
 
 
-        return (
-            <div className="input-tag">
-                <ul className="input-tag__tags">
-                   { tags.length > 0 ?
-                        tags.map((tag, i) => (
-                            <li key={i}>
-                                {tag.text}
-                                <button type="button" onClick={}>+</button>
-                            </li>
-                        ))
-                        : null
-                }
-                </ul>
-                <form onSubmit={handleSave}>
-                    <TextInput name={'text'} label={''} placeholder={'Search for...'} onChange={handleInputChange}/>
-                    <button onSubmit={handleSave}>Save</button>
-                </form>
-                {matchTags.map(tag => (
-                    <div><Link to={'profile/' + tag.email}>{tag.name} {tag.surname}</Link></div>
-                ))}
-
-            </div>
-        );
 }
 
 const mapStateToProps = state => {
@@ -147,6 +214,9 @@ const mapDispatchToProps = dispatch => {
         },
         addTagFinished: (tag, users) => {
             dispatch(addTagFinished(tag, users))
+        },
+        deleteTag: tag => {
+            dispatch(deleteTag(tag))
         }
     }
 };

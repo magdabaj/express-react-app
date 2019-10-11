@@ -2,8 +2,7 @@ import React from 'react';
 import {loadUsers} from "../../redux/actions/userActions";
 import {loadImages} from "../../redux/actions/imageActions";
 import {connect} from "react-redux";
-import Suggestions from './Suggestions';
-import SortByTag from '../SortByTag/SortByTag';
+import SortByTagClass from '../SortByTag/SortByTagClass'
 
 
 class RedirectToProfilePage extends React.Component {
@@ -47,7 +46,7 @@ class RedirectToProfilePage extends React.Component {
             {/*/!*<Suggestions users={this.props.users}/>*!/*/}
             {/*{console.log(this.state.query)}*/}
 
-            <SortByTag/>
+            <SortByTagClass/>
         </form>
         )
     }

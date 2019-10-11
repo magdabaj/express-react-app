@@ -27,3 +27,7 @@ export const ADD_TAG = 'ADD_TAG';
 export const ADD_TAG_SUCCESS = 'ADD_TAG_SUCCESS';
 export const ADD_TAG_FINISHED = 'ADD_TAG_FINISHED';
 export const MATCH_TAG = 'MATCH_TAG';
+
+export const DELETE_TAG = 'DELETE_TAG';
+export const DELETE_TAG_SUCCESS = 'DELETE_TAG_SUCCESS';
+export const DELETE_TAG_FINISHED = 'DELETE_TAG_FINISHED';

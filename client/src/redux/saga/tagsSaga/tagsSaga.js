@@ -1,6 +1,6 @@
 import * as types from "../../actionTypes";
 import {put, delay, takeEvery} from 'redux-saga/effects';
-import {addTag, addTagSuccess, addTagFinished, matchTags} from "../../actions/tagsActions";
+import {addTagSuccess, matchTags, deleteTagSuccess, deleteTagFinished} from "../../actions/tagsActions";
 
 
 export function* handleAddTag(action) {
@@ -21,11 +21,8 @@ export default function* watchAddTag() {
 
 export function* handleTagSort(action) {
     const {tag, users} = action;
-    console.log('diff ');
-    console.log(users);
-    let newUser;
     // for(let i=0; i<users.length; i+=1) {
-        newUser = users.filter(user => user.name.toString() === tag.text.toString()) || null;
+     let newUser = users.filter(user => user.name.toString() === tag.text.toString()) || null;
         if(newUser.length > 0){
             yield put(matchTags(newUser))
         }
@@ -38,4 +35,17 @@ export function* handleTagSort(action) {
 
 export function* watchTagsSort() {
     yield takeEvery(types.ADD_TAG_FINISHED, handleTagSort)
+}
+
+export function* handleTagDelete(action) {
+    console.log(action);
+    const {text} = action.tag;
+    yield put(deleteTagSuccess(text));
+    yield put(deleteTagFinished());
+
+}
+
+export function* watchTagDelete() {
+    yield takeEvery(types.DELETE_TAG, handleTagDelete)
+
 }
