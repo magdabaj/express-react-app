@@ -15,10 +15,10 @@ const Header = styled.div`
 
 
 
-const RegisterForm = ({user, onChange, onSave}) => {
+const LoginForm = ({user, onChange, onSave}) => {
     return (
         <form onSubmit={onSave}>
-            <Header className={'h1 indigo-text'}>Register</Header>
+            <Header className={'h1 indigo-text'}>Log in</Header>
             <TextInput
                 label={'Email'}
                 name={'email'}
@@ -44,4 +44,4 @@ const RegisterForm = ({user, onChange, onSave}) => {
     )
 };
 
-export default RegisterForm;
+export default LoginForm;

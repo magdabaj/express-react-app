@@ -59,7 +59,7 @@ class Header extends React.Component {
                                         <MDBNavLink to="/profile">Profiles</MDBNavLink>
                                     </MDBNavItem>
                                     <MDBNavItem>
-                                        <MDBNavLink to="#">Opinions</MDBNavLink>
+                                        <MDBNavLink to="/private-profile">Profile</MDBNavLink>
                                     </MDBNavItem>
                                 </MDBNavbarNav>
                                 <MDBNavbarNav right>

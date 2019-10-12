@@ -1,5 +1,6 @@
+import {Link, Redirect} from "react-router-dom";
 import Spinner from "../common/Spinner";
-import RegisterForm from './LoginForm';
+import LoginForm from './LoginForm';
 import React, {useEffect, useState} from 'react';
 import {loadUsers, setUser} from "../../redux/actions/userActions";
 import {loginUser} from "../../redux/actions/loginActions";
@@ -35,10 +36,10 @@ const LoginPage = ({user, users, loadUsers, setUser, isSaving, loginUser, ...pro
     const handleSave = event => {
         event.preventDefault();
         loginUser(_user);
-    }
+    };
+
     if(props.logging) {
         toast.success('You logged in successfully!');
-        props.history.push('/users');
     }
 
     console.log(_user)
@@ -48,7 +49,8 @@ const LoginPage = ({user, users, loadUsers, setUser, isSaving, loginUser, ...pro
             <Spinner/>
         ) : (
             <div>
-                <RegisterForm
+                {props.redirectToPrivateProfile && <Redirect to={'/private-profile/' + user.email}/>}
+                <LoginForm
                     user={_user}
                     onChange={handleChange}
                     onSave={handleSave}
@@ -74,6 +76,7 @@ const mapStateToProps = (state, ownProps) => {
         users: state.users,
         isSaving: state.isSaving,
         logging: state.logging,
+        redirectToPrivateProfile: state.redirectToPrivateProfile
     }
 };
 

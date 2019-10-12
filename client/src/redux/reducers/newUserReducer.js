@@ -33,5 +33,36 @@ export const logging = (state = false, action) => {
         default:
             return state;
     }
+};
+
+export const loginStatus = (state = false, action) => {
+    switch (action.type) {
+        case types.LOGIN_USER:
+            return false;
+        case types.LOGIN_USER_SUCCESS:
+            return true;
+        case types.LOGIN_USER_FINISHED:
+            return true;
+        case types.LOGIN_USER_ERROR:
+            return false;
+        default:
+            return state;
+    }
+};
+
+export const redirectToPrivateProfile = (state = false, action) => {
+    switch (action.type) {
+        case types.LOGIN_USER:
+            return false;
+        case types.LOGIN_USER_SUCCESS:
+            return true;
+        case types.LOGIN_USER_FINISHED:
+            return false;
+        case types.LOGIN_USER_ERROR:
+            return false;
+        default:
+            return state;
+    }
 }
+
 
