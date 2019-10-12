@@ -1,12 +1,11 @@
 import Spinner from "../common/Spinner";
-import RegisterForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 import React, {useEffect, useState} from 'react';
-import {loadUsers, setUser} from "../../redux/actions/userActions";
-import {loginUser} from "../../redux/actions/loginActions";
+import {loadUsers, setUser, saveUser} from "../../redux/actions/userActions";
 import {connect} from 'react-redux';
 import {toast} from "react-toastify";
 
-const LoginPage = ({user, users, loadUsers, setUser, isSaving, loginUser, ...props}) => {
+const RegisterPage = ({user, users, loadUsers, setUser, isSaving, saveUser, ...props}) => {
     console.log('user', user);
     const [_user, _setUser] = useState({...user});
 
@@ -34,14 +33,12 @@ const LoginPage = ({user, users, loadUsers, setUser, isSaving, loginUser, ...pro
 
     const handleSave = event => {
         event.preventDefault();
-        loginUser(_user);
-    }
-    if(props.logging) {
-        toast.success('You logged in successfully!');
+        saveUser(_user);
+    };
+    if(props.savingUser) {
+        toast.success('You registered successfully!');
         props.history.push('/users');
     }
-
-    console.log(_user)
 
     return (
         users.length === 0 || user.name === undefined ? (
@@ -73,7 +70,7 @@ const mapStateToProps = (state, ownProps) => {
         user,
         users: state.users,
         isSaving: state.isSaving,
-        logging: state.logging,
+        savingUser: state.savingUser
     }
 };
 
@@ -85,10 +82,10 @@ const mapDispatchToProps = dispatch => {
         setUser: (user) => {
             dispatch(setUser(user))
         },
-        loginUser: (user) => {
-            dispatch(loginUser(user))
+        saveUser: (user) => {
+            dispatch(saveUser(user))
         }
     }
 }
 
-export default connect (mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect (mapStateToProps, mapDispatchToProps)(RegisterPage);

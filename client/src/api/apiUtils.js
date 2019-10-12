@@ -8,6 +8,6 @@ export async function handleResponse(response) {
 }
 
 export function handleError(error) {
-    console.log('API call failer. ' + error);
+    console.log('API call failed. ' + error);
     throw error;
 }

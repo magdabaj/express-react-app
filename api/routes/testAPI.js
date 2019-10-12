@@ -112,8 +112,8 @@ router.post("/login", (req, res) => {
         if (err) {
             console.log(err.stack)
         } else {
-            if(res2.rows[0]) {
-                console.log('user', res2.rows);
+            if(res2.rows[0] !== undefined) {
+                console.log('user', res2.rows[0]);
                 bcrypt.compare(password, res2.rows[0].password).then(isMatch => {
                     if (isMatch) {
                         // User matched

@@ -1,8 +1,9 @@
 import users, {isSaving, usersError, deletingUser, savingUser} from './userReducer';
 import images from './imageReducer';
 import {combineReducers} from 'redux';
-import newUser from './newUserReducer';
+import newUser, {logging} from './newUserReducer';
 import tags, {newTag, setTagSuccess, matchTags} from './tagsReducers';
+
 
 export default combineReducers({
     users,
@@ -15,5 +16,6 @@ export default combineReducers({
     tags,
     newTag,
     setTagSuccess,
-    matchTags
+    matchTags,
+    logging
 })

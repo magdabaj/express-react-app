@@ -1,4 +1,4 @@
-import LoginPage from "./components/LoginPage/LoginPage";
+import RegisterPage from "./components/RegisterPage/RegisterPage";
 import ProfilePage from "./components/Profiles/ProfilePage";
 import RedirectToProfilePage from "./components/Profiles/RedirectToProfilePage";
 import {MDBContainer} from "mdbreact";
@@ -13,6 +13,7 @@ import HomePage from './components/HomePage';
 import UsersPage from './components/UsersPage';
 import AboutPage from './components/AboutPage';
 import ManageUsersPage from './components/ManageUsersPage';
+import LoginPage from './components/LoginPage/LoginPage';
 // import BurgerHeader from './components/common/BurgerHeader';
 
 const App = () => {
@@ -28,7 +29,8 @@ const App = () => {
                     <Route path={'/users'} component={UsersPage}/>
                     <Route path={'/user/:slug'} component={ManageUsersPage}/>
                     <Route path={'/user'} component={ManageUsersPage}/>
-                    <Route path={'/register'} component={LoginPage}/>
+                    <Route path={'/register'} component={RegisterPage}/>
+                    <Route path={'/login'} component={LoginPage}/>
                     <Route path={'/profile/:slug'} component={ProfilePage}/>
                     <Route path={'/profile'} component={RedirectToProfilePage}/>
                     <Route path={'/about'} component={AboutPage}/>

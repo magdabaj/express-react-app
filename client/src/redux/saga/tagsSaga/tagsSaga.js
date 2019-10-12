@@ -1,5 +1,5 @@
 import * as types from "../../actionTypes";
-import {put, delay, takeEvery} from 'redux-saga/effects';
+import {put, takeEvery} from 'redux-saga/effects';
 import {addTagSuccess, matchTags, deleteTagSuccess, deleteTagFinished} from "../../actions/tagsActions";
 
 

@@ -13,7 +13,25 @@ export default (state = newUser, action) => {
     switch (action.type) {
         case types.SET_USER:
             return action.user;
+        case types.LOGIN_USER_SUCCESS:
+            return action.user;
         default:
             return state;
     }
 }
+
+export const logging = (state = false, action) => {
+    switch (action.type) {
+        case types.LOGIN_USER:
+            return false;
+        case types.LOGIN_USER_SUCCESS:
+            return true;
+        case types.LOGIN_USER_FINISHED:
+            return false;
+        case types.LOGIN_USER_ERROR:
+            return false;
+        default:
+            return state;
+    }
+}
+

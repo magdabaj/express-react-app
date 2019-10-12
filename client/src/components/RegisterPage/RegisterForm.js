@@ -20,9 +20,27 @@ const RegisterForm = ({user, onChange, onSave}) => {
         <form onSubmit={onSave}>
             <Header className={'h1 indigo-text'}>Register</Header>
             <TextInput
+                label={'Name'}
+                name={'name'}
+                value={user.name}
+                onChange={onChange}
+            />
+            <TextInput
+                label={'Surname'}
+                name={'surname'}
+                value={user.surname}
+                onChange={onChange}
+            />
+            <TextInput
                 label={'Email'}
                 name={'email'}
                 value={user.email}
+                onChange={onChange}
+            />
+            <TextInput
+                label={'Login'}
+                name={'login'}
+                value={user.login}
                 onChange={onChange}
             />
             <TextInput
@@ -36,7 +54,7 @@ const RegisterForm = ({user, onChange, onSave}) => {
                 type={'submit'}
                 onSubmit={onSave}
                 color={'indigo'}
-                disabled={!user.email || !user.password }
+                disabled={!user.name || !user.surname || !user.email}
             >
                 Save
             </MDBBtn>
