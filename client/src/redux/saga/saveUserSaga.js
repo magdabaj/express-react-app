@@ -1,5 +1,6 @@
 import * as types from '../actionTypes';
-import {saveUserApi} from '../../api/userApi';
+// import {saveUserApi} from '../../api/userApi';
+import {saveUserApi} from '../../api/registerApi';
 import {updateUserSuccess, createUserSuccess, saveUserFinished, saveUserError} from "../actions/userActions";
 import {take, fork, put, call} from 'redux-saga/effects';
 

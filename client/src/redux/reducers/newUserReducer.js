@@ -4,7 +4,9 @@ const newUser = {
     email: '',
     name: '',
     user_id: '',
-    surname: ''
+    surname: '',
+    password: '',
+    login: '',
 };
 
 export default (state = newUser, action) => {

@@ -1,3 +1,4 @@
+import LoginPage from "./components/LoginPage/LoginPage";
 import ProfilePage from "./components/Profiles/ProfilePage";
 import RedirectToProfilePage from "./components/Profiles/RedirectToProfilePage";
 import {MDBContainer} from "mdbreact";
@@ -27,6 +28,7 @@ const App = () => {
                     <Route path={'/users'} component={UsersPage}/>
                     <Route path={'/user/:slug'} component={ManageUsersPage}/>
                     <Route path={'/user'} component={ManageUsersPage}/>
+                    <Route path={'/register'} component={LoginPage}/>
                     <Route path={'/profile/:slug'} component={ProfilePage}/>
                     <Route path={'/profile'} component={RedirectToProfilePage}/>
                     <Route path={'/about'} component={AboutPage}/>
