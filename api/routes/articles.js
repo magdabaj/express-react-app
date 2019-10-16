@@ -51,8 +51,9 @@ router.post('/', (req, res) => {
     let url = req.body.url;
     let user_id = req.body.user_id;
     let add_date = new Date();
-    let sql = 'INSERT INTO articles (title, url, user_id, add_date) VALUES ($1, $2, $3, $4)';
-    let params = [ title, url, user_id, add_date];
+    let image_id = req.body.image_id;
+    let sql = 'INSERT INTO articles (title, url, user_id, add_date, image_id) VALUES ($1, $2, $3, $4, $5)';
+    let params = [ title, url, user_id, add_date, image_id];
     client.query(sql, params, (err, res2) => {
         if (err) {
             console.log(err.stack)
@@ -67,9 +68,10 @@ router.put('/', (req, res) => {
     let title = req.body.title;
     let url = req.body.url;
     let edit_date = new Date();
+    let image_id = req.body.image_id;
     let user_id = req.body.user_id;
-    let sql = 'UPDATE articles SET title = $1,url = $2, edit_date = $3, user_id = $5 WHERE article_id = $4';
-    let params = [title, url, edit_date, user_id, article_id];
+    let sql = 'UPDATE articles SET title = $1,url = $2, edit_date = $3, user_id = $5, image_id = $6 WHERE article_id = $4';
+    let params = [title, url, edit_date, user_id, article_id, image_id];
     client.query(sql, params, (err, res2) => {
         if (err) {
             console.log(err.stack)

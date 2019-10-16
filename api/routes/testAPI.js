@@ -1,12 +1,9 @@
 let express = require('express');
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const passport = require('passport');
+const request = require('request');
 const {Client} = require('pg');
-
-// Load user model
-
-const User = require("../models/User");
 
 const client = new Client({
     user: 'magda',

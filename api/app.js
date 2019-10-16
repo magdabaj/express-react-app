@@ -89,8 +89,8 @@ client.query('SELECT * FROM users', (err, res) => {
   if (err) {
     console.log(err.stack)
   } else {
-      const users = [];
-      users.push(res.rows);
+    const users = [];
+    users.push(res.rows);
     console.log(res.rows)
   }
 });
